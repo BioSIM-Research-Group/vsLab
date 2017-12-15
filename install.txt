@@ -20,8 +20,8 @@ if {$tcl_platform(os) == "Darwin"} {
 # Provide de path to AutoDock Tools
 variable autoDockToolsPath 	none
 # Provide de path to AutoDock binary file
-variable autoDockPath	 	none
+variable autoDockPath	 	noneFile
 # Provide de path to AutoDock Grid binary file
-variable autoGridPath 	 	none
+variable autoGridPath 	 	noneFile
 vmd_install_extension VsLab "VsLab::vslab" "Modeling/Virtual Screening Lab"
 ####vmdStore#### END vsLab
