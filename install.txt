@@ -1,0 +1,27 @@
+####vmdStore#### START vsLab
+## Version XXversionXX
+lappend auto_path          "$::vmdStorePath/plugins/vsLab"
+lappend auto_path          "$::vmdStorePath/plugins/vsLab/Routines/Lib"
+lappend auto_path          "$::vmdStorePath/plugins/vsLab/Routines/Other/bwidget"
+lappend auto_path          "$::vmdStorePath/plugins/vsLab/Routines/Other/tablelist4.11"
+# Linux
+if {$tcl_platform(os) == "Linux"} {
+    if { $tcl_platform(machine) == "i686" }   {
+        load "$::vmdStorePath/plugins/vsLab/Routines/Other/sqlite/32B/tclsqlite-3.6.11.so"
+        }
+    if { $tcl_platform(machine) == "x86_64" } {
+        load "$::vmdStorePath/plugins/vsLab/Routines/Other/sqlite/64B/libtclsqlite3.so"
+        }
+}
+# macOS
+if {$tcl_platform(os) == "Darwin"} {
+	load "$::vmdStorePath/plugins/vsLab/Routines/Other/sqlite/MacOs/libsqlite3.6.18.dylib"
+}
+# Provide de path to AutoDock Tools
+variable autoDockToolsPath 	none
+# Provide de path to AutoDock binary file
+variable autoDockPath	 	none
+# Provide de path to AutoDock Grid binary file
+variable autoGridPath 	 	none
+vmd_install_extension VsLab "VsLab::vslab" "Modeling/Virtual Screening Lab"
+####vmdStore#### END vsLab
