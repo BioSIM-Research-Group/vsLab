@@ -18,10 +18,10 @@ if {$tcl_platform(os) == "Darwin"} {
 	load "$::vmdStorePath/plugins/vsLab/Routines/Other/sqlite/MacOs/libsqlite3.6.18.dylib"
 }
 # Provide de path to AutoDock Tools
-variable autoDockToolsPath 	none
+variable autoDockToolsPath none
 # Provide de path to AutoDock binary file
-variable autoDockPath	 	askFile
+variable autoDockPath askFile
 # Provide de path to AutoDock Grid binary file
-variable autoGridPath 	 	askFile
+variable autoGridPath askFile
 vmd_install_extension VsLab "VsLab::vslab" "Modeling/Virtual Screening Lab"
 ####vmdStore#### END vsLab
