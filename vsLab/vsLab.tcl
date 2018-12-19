@@ -17,6 +17,7 @@ namespace eval VsLab:: {
         #### Read Packages	        
 	
 	## Lib
+       package require VSLAB                   1.4
        package require GuiVsLab                1.0
        package require Gui_AutoDock            1.0
        package require Gui_AutoGrid            1.0
