@@ -2,6 +2,12 @@ package provide Gui_About 1.0
 
 proc VsLab::About {about}  {
 
+
+
+
+        # General variables
+        global autoDockToolsPath autoDockPath autoGridPath
+
 	
 	set logo1 {R0lGODlhKwF2AOf/AAABAAcAAAACBQEEABABAQMGAQAGCgsEAhYFAAcJBRoE
 ABEHAA4IBiYCAQkMCBwHAyEHAAwOChcLDBINCz0CAhoNByYKAiAMAA8RDigL
@@ -165,15 +171,15 @@ r3eUeu0NTgBQQbEPdPDtxzc3gRZUOx/99AUlv/1xI1Uufvnl/zsgADs=
 }
 	
 ########## Frame 1
-	grid [frame $about.f1 -bg black] -in $about -row 0 -column 0 -sticky news
+	grid [frame $about.f1 -bg black] -in $about -row 0 -column 0 -sticky ew
 	image create photo img2 -data $logo1
-	grid [label $about.f1.logo -bg black -image img2 ] -in $about.f1 -row 0 -column 0  -sticky ew
+	grid [label $about.f1.logo -bg black -image img2 ] -in $about.f1 -row 0 -column 0 -sticky ew
 	
 ########## Frame 2
-	grid [ttk::frame $about.f2 ] -in $about  -pady 5 -padx 10 -row 1 -column 0 -sticky news
+	grid [ttk::frame $about.f2] -in $about  -pady 5 -padx 10 -row 1 -column 0  -sticky ew 
 		
 		## text
-		grid [text $about.f2.txt -width 51 -relief flat -yscrollcommand [list $about.f2.sry set] ] -in $about.f2 -row 0 -column 0 -pady 10 -sticky news
+		grid [text $about.f2.txt -width 51 -height 20 -relief flat -yscrollcommand [list $about.f2.sry set] ] -in $about.f2 -row 0 -column 0 -pady 10  -sticky ew
 	
 		
 		## Scrool_Bar V
@@ -181,12 +187,6 @@ r3eUeu0NTgBQQbEPdPDtxzc3gRZUOx/99AUlv/1xI1Uufvnl/zsgADs=
       		grid $about.f2.sry -in $about.f2 -row 0 -column 1  -sticky ns
 
 
-		## Scrool_Bar H
-      		#scrollbar $about.f2.srx -orient horizontal -command [list $about.f2.txt xview]
-      		#grid $about.f2.srx -in $about.f2 -row 1 -column 0 -sticky ew
-
-		
-	
 		## Inserir o tyexto
 	
 		$about.f2.txt insert end "Version : 1.0 (Out 2009) \n\n"
@@ -215,17 +215,51 @@ r3eUeu0NTgBQQbEPdPDtxzc3gRZUOx/99AUlv/1xI1Uufvnl/zsgADs=
 		$about.f2.txt insert end $txt
 		
 		$about.f2.txt configure -state disable
-		
-	
+
+
+
+########## Frame 3
+        grid [ttk::frame $about.f3 ] -in $about  -pady 5 -padx 10 -row 2 -column 0 -sticky ew 
+
+                ## label options
+                grid [ttk::label $about.f3.txt -text "Autodock Configuration :"] -in $about.f3 -row 0 -column 0 -pady 10 -sticky w
+
+
+		## label AutodockTools
+                grid [ttk::label $about.f3.txt1 -text "AutoDock Tools Path:"] -in $about.f3 -row 1 -column 0  -sticky w
+        	        grid [ttk::entry $about.f3.ent1 -textvariable autoDockToolsPath -width 25] -in $about.f3 -row 1 -column 1 -sticky ew
+			grid [ttk::button $about.f3.ent1b  -text "Change"] -in $about.f3 -row 1 -column 3
+
+
+                ## label options
+                grid [ttk::label $about.f3.txt2 -text "AutoDock Executable:"] -in $about.f3 -row 2 -column 0 -sticky w
+                        grid [ttk::entry $about.f3.ent2 -textvariable autoDockPath -width 25] -in $about.f3 -row 2 -column 1 -sticky ew 
+			grid [ttk::button $about.f3.ent2b  -text "Change"] -in $about.f3 -row 2 -column 3
+
+
+
+                ## label options
+                grid [ttk::label $about.f3.txt3 -text "AutoGrid Executable:"] -in $about.f3 -row 3 -column 0 -sticky w
+			 grid [ttk::entry $about.f3.ent3 -textvariable autoGridPath -width 25] -in $about.f3 -row 3 -column 1 -sticky ew 
+                         grid [ttk::button $about.f3.ent3b  -text "Change"] -in $about.f3 -row 3 -column 3
+
+
+
+
 ########## Configure weights	
 	grid columnconfigure	$about.f1		0 -weight 1	
 	grid columnconfigure	$about.f1.logo		0 -weight 1
 	grid rowconfigure 	$about     		1 -weight 1
-        grid rowconfigure 	$about.f2     		0 -weight 1
-        grid rowconfigure     	$about.f2.txt     	0 -weight 1
+
+	grid columnconfigure    $about                  0 -weight 1
+
+        grid columnconfigure 	$about.f2     		0 -weight 1
+        grid columnconfigure    $about.f2.txt     	0 -weight 1
 	
-	grid columnconfigure 	$about  		0 -weight 1
-	grid columnconfigure 	$about.f2     		0 -weight 1
-	grid columnconfigure    $about.f2.txt     	0 -weight 1
+	grid columnconfigure 	$about.f3     		1 -weight 1
+	grid columnconfigure    $about.f3.ent1    	1 -weight 1
+	grid columnconfigure    $about.f3.ent2          1 -weight 1
+	grid columnconfigure    $about.f3.ent3          1 -weight 1
+
 	
 }

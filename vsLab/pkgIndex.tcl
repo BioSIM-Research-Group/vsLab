@@ -8,6 +8,36 @@
 # script is sourced, the variable $dir must contain the
 # full path name of this file's directory.
 
+#load "/opt/programs/vmd/1.9.3/plugins/noarch/portoBioComp/volarea/Routines/Other/sqlite/64B/libtclsqlite3.so"
 
-package ifneeded VsLab 	1.0 [list source [file join $dir main.tcl]]
+package ifneeded VSLAB 		1.4 [list source [file join $dir/ vsLab.tcl]]
+package ifneeded Gui_AutoDock   1.0 [list source [file join $dir/Routines/Lib/ Gui_AutoDock.tcl]]
+package ifneeded Gui_AutoGrid   1.0 [list source [file join $dir/Routines/Lib/ Gui_AutoGrid.tcl]]
+package ifneeded AutoDock       1.0 [list source [file join $dir/Routines/Lib/ AutoDock.tcl]]
+package ifneeded Gui_inputFile  1.0 [list source [file join $dir/Routines/Lib/ Gui_inputFile.tcl]]
+package ifneeded Gui_Sasa       1.0 [list source [file join $dir/Routines/Lib/ Gui_Sasa.tcl]]
+package ifneeded Gui_About      1.0 [list source [file join $dir/Routines/Lib/ Gui_About.tcl]]
+package ifneeded GuiVsLab       1.0 [list source [file join $dir/Routines/Lib/ Gui.tcl]]
+
+#==============================================================================
+# Tablelist and Tablelist_tile package index file.
+#
+# Copyright (c) 2000-2009  Csaba Nemethi (E-mail: csaba.nemethi@t-online.de)
+#==============================================================================
+
+#
+# Regular packages:
+#
+#package ifneeded tablelist         4.11 \
+        [list source [file join $dir/Routines/Other/tablelist4.11 tablelist.tcl]]
+#package ifneeded tablelist_tile    4.11 \
+        [list source [file join $dir/Routines/Other/tablelist4.11 tablelist_tile.tcl]]
+
+#
+# Aliases:
+#
+#package ifneeded Tablelist         4.11 \
+        [list package require -exact tablelist      4.11]
+#package ifneeded Tablelist_tile    4.11 \
+        [list package require -exact tablelist_tile 4.11]
 

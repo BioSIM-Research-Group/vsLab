@@ -49,9 +49,30 @@ proc VsLab::buildAutoGridFrame {grid} {
 	grid [ttk::label $grid.f1.lbDimZT -width 5 -textvariable VsLab::Z] -in $grid.f1 -row 5 -column 3 -padx 5 -pady 5
 
 	
+	## Box dimensions and center
+
+	grid [ttk::frame $grid.f1.f0] -in $grid.f1 -row 6 -column 0 -columnspan 4 -sticky news 
+
+		## Label
+		grid [ttk::label $grid.f1.f0.lbSel5 -text "Based on Selection:"] -in $grid.f1.f0 -row 6 -column 0  -padx 10 -pady 10 -sticky w
+
+                ## entry
+                grid [ttk::entry $grid.f1.f0.entSel5 -textvariable VsLab::grid_selection ] -in $grid.f1.f0 -row 6 -column 1 -padx 5 -sticky ew
+
+		$grid.f1.f0.entSel5 delete 0 end
+        	$grid.f1.f0.entSel5 insert end "all"
+
+                ## button
+                grid [ttk::button $grid.f1.f0.btSel5 -text "Apply" -width 5 -command  {default 1}] -in $grid.f1.f0 -row 6 -column 3 -padx 10
+
+
+   
+
+
+	## Points spacing
 	
-	grid [ttk::label $grid.f1.lbSel4 -text "Points Spacing : "] -in $grid.f1 -row 6 -column 0 -padx 10 -pady 20 -sticky w
-	grid [spinbox $grid.f1.sp0  -width 5  -from 0 -to 1 -validate all -increment 0.005 -state readonly  -textvariable VsLab::grid_spacing -command {set VsLab::grid_spacing [$VsLab::topGui.nb1.f2.nb2.f3.f1.sp0 get];gridpointvalue $VsLab::grid_spacing} ] -in $grid.f1 -row 6 -column 1		
+	grid [ttk::label $grid.f1.lbSel4 -text "Points Spacing : "] -in $grid.f1 -row 7 -column 0 -padx 10 -pady 20 -sticky w
+	grid [spinbox $grid.f1.sp0  -width 5  -from 0 -to 1 -validate all -increment 0.005 -state readonly  -textvariable VsLab::grid_spacing -command {set VsLab::grid_spacing [$VsLab::topGui.nb1.f2.nb2.f3.f1.sp0 get];gridpointvalue $VsLab::grid_spacing} ] -in $grid.f1 -row 7 -column 1		
 	$grid.f1.sp0 set $VsLab::grid_spacing
 	
 	
@@ -59,7 +80,7 @@ proc VsLab::buildAutoGridFrame {grid} {
 	
 	## Frame 1,1
 	
-	grid [ttk::frame $grid.f1.f1] -in $grid.f1 -row 7 -column 0 -columnspan 4 -sticky news -pady 5 -padx 10
+	grid [ttk::frame $grid.f1.f1] -in $grid.f1 -row 8 -column 0 -columnspan 4 -sticky news -pady 5 -padx 10
 	
 		grid [ttk::label $grid.f1.f1.lbCPt -text "Number of grid points at X, Y and Z: "] -in $grid.f1.f1 -row 0 -column 0	-sticky w
 		grid [ttk::label $grid.f1.f1.lbCP1 -text "(0,0,0)"] -in $grid.f1.f1 -row 0 -column 1	
@@ -94,10 +115,17 @@ proc VsLab::buildAutoGridFrame {grid} {
 	grid columnconfigure  $grid     	0 -weight 1
 	grid columnconfigure  $grid.f1     	2 -weight 1
 	grid columnconfigure  $grid.f3     	1 -weight 1
+	grid columnconfigure  $grid.f1.f0          1 -weight 1
+	
 
+default 0
 
-	#default
 }
+
+
+
+
+
 
 
 proc gridpointtest {value} {
@@ -135,8 +163,10 @@ proc gridpointvalue {grid_spacing} {
 
 
 proc default {option} {
+
 	set input .vslab.nb1.f2.nb2.f1
 	set topLayer [molinfo top]
+	set grid $VsLab::topGui.nb1.f2.nb2.f3
 	
 	
 	## See if a protein exists as toplevel
@@ -152,10 +182,11 @@ proc default {option} {
 		## turn selected molecule top
 		mol top $topLayer
 		## retrieve the dimensions of the molecule	
-    		set selection [atomselect $topLayer all] 
-		set VsLab::sizemol [box_molecule_size]
+    		set selection [atomselect $topLayer [$grid.f1.f0.entSel5 get] ] 
+		set VsLab::sizemol [box_molecule_size [atomselect $topLayer [$grid.f1.f0.entSel5 get]]]
 		 
 		## Putting scales values in the maximum
+
 		set VsLab::W [expr (( [lindex  [lindex $VsLab::sizemol 1] 0] - [lindex  [lindex $VsLab::sizemol 0] 0] ))]
 		set VsLab::H [expr (( [lindex  [lindex $VsLab::sizemol 1] 1] - [lindex  [lindex $VsLab::sizemol 0] 1] ))]
 		set VsLab::D [expr (( [lindex  [lindex $VsLab::sizemol 1] 2] - [lindex  [lindex $VsLab::sizemol 0] 2] ))]
@@ -164,17 +195,29 @@ proc default {option} {
 		set VsLab::Y [expr [lindex  [lindex $VsLab::sizemol 0] 1] + ( $VsLab::H /2)]
 		set VsLab::Z [expr [lindex  [lindex $VsLab::sizemol 0] 2] + ( $VsLab::D /2)]
 		
-		## Update box dimensions
-		box_update_dimension	
 		
 		## Update box center
 		box_update_center
 
+
+		## Update box dimensions
+                box_update_dimension
+
+
+                ## drawbox
+                box_draw yellow lixo
+
+
+		# change the size and the center of the molecule but retain the size of the full moleucle
+		if {$option==1} {
+			set VsLab::sizemol [box_molecule_size [atomselect $topLayer all]]
+			box_update_center
+			box_update_dimension
+			
+		}
+
 		## scale and grid points
-		#gridpointtest 0; gridpointvalue $VsLab::grid_spacing
-		
-		## drawbox
-		box_draw yellow lixo 
+		gridpointtest 0; gridpointvalue $VsLab::grid_spacing
 		
 	}
 	## drawbox
@@ -195,13 +238,15 @@ proc openGridFile {} {
 }
 
 
-proc box_molecule_size {} {
+proc box_molecule_size {selection} {
 	
 	set input .vslab.nb1.f2.nb2.f1
+	set grid .vslab.nb1.f2.nb2.f3
 	
 	set topLayer [molinfo top]
 	
-	set selection [atomselect $topLayer "all and not atomicnumber 1"]
+	#set selection [atomselect $topLayer "all and not atomicnumber 1"]
+	#set selection [atomselect $topLayer [$grid.f1.f0.entSel5 get]]
 	set sx [$selection get x]; set sy [$selection get y]; set sz [$selection get z]
 	set minx [lindex $sx 0]; set miny [lindex $sy 0]; set minz [lindex $sz 0]
 	set maxx $minx; set maxy $miny; set maxz $minz
