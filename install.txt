@@ -1,11 +1,11 @@
 ####vmdStore#### START vsLab
 ## Version XXversionXX
 lappend auto_path   "$::vmdStorePath/plugins/vsLab"
-# Provide de path to AutoDock Tools
+# Provide the path to AutoDock Tools
 variable autoDockToolsPath none
-# Provide de path to AutoDock binary file
+# Provide the path to AutoDock binary file
 variable autoDockPath askFile
-# Provide de path to AutoDock Grid binary file
+# Provide the path to AutoDock Grid binary file
 variable autoGridPath askFile
 vmd_install_extension VSLAB "VsLab::vslab" "VMD Store/Virtual Screening Lab"
 ####vmdStore#### END vsLab
