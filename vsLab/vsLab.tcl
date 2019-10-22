@@ -4,7 +4,8 @@ package provide VSLAB 1.4
 ## VsLab allow to dock one or a group of ligands into a target protein using autodock and VMD    ##
 ###################################################################################################
 ## 
-## version 1.4 L
+## version 1.5 L
+## Last revision OUT 2019 - Henrique Silva Fernandes
 ## Last revision SET 2011 - Nuno Sousa Cerqueira
 ##
 ## Faculdade de Ciencias, Universidade do Porto - Portugal
@@ -33,7 +34,7 @@ namespace eval VsLab:: {
         #### Variables Program
 
 		variable img1 ""
-		variable version			1.4
+		variable version			1.5
 		variable progressMessage		"Ready."
 		variable progressMax			100
         variable debug                          "YES"

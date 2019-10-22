@@ -7,5 +7,5 @@ variable autoDockToolsPath none
 variable autoDockPath askFile
 # Provide de path to AutoDock Grid binary file
 variable autoGridPath askFile
-vmd_install_extension VSLAB "VsLab::vslab" "PortoBioComp/Virtual Screening Lab"
+vmd_install_extension VSLAB "VsLab::vslab" "VMD Store/Virtual Screening Lab"
 ####vmdStore#### END vsLab

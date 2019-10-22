@@ -12,7 +12,7 @@ The potential associated to this software makes it an attractive choice not only
 
 ## Minimum Requirements
 
-Operating System: macOS or Linux
+Operating System: macOS, Linux, or Windows
 Visual Molecular Dynamics (VMD) 1.8.7 or later
 [AutoDock Suite](http://autodock.scripps.edu/)
 [Sqlite database engine](http://www.sqlite.org/)
